@@ -1,0 +1,759 @@
+/* ============================================================
+   CHIARA DIOMEI — PORTFOLIO
+   Foglio di stile principale
+   ============================================================
+   STRUTTURA DEL FILE (cerca i titoli per navigare velocemente):
+   1.  VARIABILI COLORE / FONT  ← cambia qui i colori globali
+   2.  RESET E BASE
+   3.  CURSORE PERSONALIZZATO
+   4.  PRELOADER
+   5.  HEADER / MENU
+   6.  HERO + COSTELLAZIONE
+   7.  MARQUEE
+   8.  MANIFESTO
+   9.  SEZIONE LAVORI / GRID
+   10. FOOTER
+   11. MODALE DETTAGLIO PROGETTO
+   12. RESPONSIVE / MOBILE
+   ============================================================ */
+
+
+/* ============================================================
+   1. VARIABILI COLORE E FONT
+   Modifica qui per cambiare la palette globale
+   ============================================================ */
+:root {
+  --cd-bg:      #0e0e0c;   /* sfondo principale (nero caldo)   */
+  --cd-cream:   #f2ede2;   /* testo principale (panna)         */
+  --cd-cream-2: #e8e2d4;   /* variante leggermente più scura   */
+  --cd-accent:  #d4a373;   /* arancio/oro accent               */
+  --cd-muted:   #8a8478;   /* grigio caldo per testi secondari */
+
+  --cd-font-display: "Instrument Serif", serif;  /* titoli */
+  --cd-font-body:    "Inter", sans-serif;        /* testo corrente */
+}
+
+
+/* ============================================================
+   2. RESET E BASE
+   ============================================================ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--cd-bg);
+  color: var(--cd-cream);
+  font-family: var(--cd-font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body { cursor: none; } /* nascondiamo cursore di sistema (su desktop) */
+a { color: inherit; text-decoration: none; }
+em { font-style: italic; color: var(--cd-accent); }
+img { max-width: 100%; display: block; }
+
+
+/* ============================================================
+   3. CURSORE PERSONALIZZATO
+   ============================================================ */
+.cd-ball, .cd-ring {
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+.cd-ball {
+  width: 8px; height: 8px;
+  background: var(--cd-cream); border-radius: 50%;
+}
+.cd-ring {
+  width: 38px; height: 38px;
+  border: 1px solid var(--cd-cream); border-radius: 50%;
+  transition: width .25s, height .25s, background .25s, opacity .25s;
+}
+.cd-ring.on {
+  width: 70px; height: 70px;
+  background: rgba(242, 237, 226, 0.08);
+}
+
+
+/* ============================================================
+   4. PRELOADER (schermata di caricamento iniziale)
+   ============================================================ */
+#cd-preloader {
+  position: fixed; inset: 0; z-index: 10000;
+  background: var(--cd-bg);
+  display: flex; align-items: center; justify-content: center;
+}
+.cd-pl-wrap { text-align: center; }
+.cd-pl-line { overflow: hidden; }
+.cd-pl-word {
+  display: inline-block;
+  font-family: var(--cd-font-display);
+  font-size: clamp(48px, 9vw, 120px);
+  line-height: .95;
+  transform: translateY(110%);
+}
+.cd-pl-bar {
+  width: 220px; height: 1px;
+  background: rgba(242, 237, 226, 0.2);
+  margin: 32px auto 12px;
+  overflow: hidden;
+}
+.cd-pl-fill { width: 0; height: 100%; background: var(--cd-cream); }
+.cd-pl-pct {
+  font-size: 11px; letter-spacing: 0.2em;
+  color: var(--cd-muted);
+}
+
+
+/* ============================================================
+   5. HEADER / MENU NAVIGAZIONE
+   ============================================================ */
+.cd-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 48px;
+}
+/* Blend mode solo su logo e voci nav — non sul burger */
+.cd-logo,
+.cd-nav a {
+  mix-blend-mode: difference;
+}
+.cd-logo {
+  font-family: var(--cd-font-display);
+  font-size: 22px; letter-spacing: 0.05em;
+}
+.cd-nav { display: flex; gap: 36px; }
+.cd-nav a {
+  font-size: 13px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: relative;
+}
+.cd-nav a::after {
+  content: ''; position: absolute; left: 0; bottom: -4px;
+  width: 0; height: 1px; background: currentColor;
+  transition: width .35s ease;
+}
+.cd-nav a:hover::after { width: 100%; }
+
+/* Hamburger button — nascosto su desktop, visibile su mobile */
+.cd-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 36px; height: 36px;
+  background: transparent; border: none;
+  cursor: pointer; padding: 4px;
+  /* Nessun mix-blend-mode: le span sono bianche su sfondo scuro */
+  z-index: 101;  /* sopra il nav overlay (z-index 99) */
+  position: relative;
+}
+.cd-burger span {
+  display: block; width: 100%; height: 1px;
+  background: #fff;
+  transition: transform 0.35s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+/* Stato aperto — X */
+.cd-burger.open span:first-child { transform: translateY(3.5px) rotate(45deg); }
+.cd-burger.open span:last-child  { transform: translateY(-3.5px) rotate(-45deg); }
+
+
+/* ============================================================
+   6. HERO + COSTELLAZIONE DECORATIVA
+   ============================================================ */
+.cd-hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 180px 48px 80px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  overflow: hidden;
+}
+.cd-hero-eye {
+  font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--cd-muted);
+  overflow: hidden;
+}
+.cd-hero-eye span { display: inline-block; transform: translateY(110%); opacity: 0; }
+
+.cd-hero-name {
+  font-family: var(--cd-font-display);
+  font-weight: 400;
+  font-size: clamp(80px, 18vw, 280px);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  margin-top: 32px;
+}
+.cd-hn-line { overflow: hidden; }
+.cd-hn-word {
+  display: inline-block;
+  transform: translateY(110%);
+  font-style: italic;
+}
+.cd-hn-line:nth-child(2) .cd-hn-word { font-style: normal; }
+
+.cd-hero-foot {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 48px; margin-top: 48px;
+}
+.cd-hero-desc {
+  max-width: 360px; font-size: 15px; line-height: 1.55;
+  color: var(--cd-cream-2); opacity: 0; transform: translateY(20px);
+}
+.cd-hero-scroll {
+  font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--cd-muted);
+  display: flex; align-items: center; gap: 12px;
+  opacity: 0; transform: translateY(20px);
+}
+.cd-h-line { width: 40px; height: 1px; background: var(--cd-muted); }
+
+/* Costellazione (luna + stelle) */
+.cd-constellation {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+}
+.cd-c-moon {
+  position: absolute; top: 5%; right: 6%;
+  /* La luna originale è panoramica (480x276) — width più ampia */
+  width: clamp(200px, 26vw, 360px);
+  opacity: 0.9;
+}
+.cd-c-moon img { width: 100%; height: auto; display: block; }
+.cd-c-star { position: absolute; }
+.cd-c-star img { width: 100%; height: auto; }
+.cd-c-s1 { top: 18%; left: 12%; width: 38px; }
+.cd-c-s2 { top: 32%; left: 32%; width: 26px; }
+.cd-c-s3 { top: 56%; right: 18%; width: 32px; }
+.cd-c-s4 { top: 70%; left: 22%; width: 44px; }
+.cd-c-s5 { top: 12%; left: 48%; width: 20px; }
+.cd-c-s6 { top: 78%; right: 32%; width: 24px; }
+.cd-c-s7 { top: 42%; right: 42%; width: 18px; }
+
+/* il contenuto del hero deve stare sopra la costellazione */
+.cd-hero > *:not(.cd-constellation) { position: relative; z-index: 1; }
+
+
+/* ============================================================
+   7. MARQUEE — TESTO SCORREVOLE INFINITO
+   ============================================================ */
+.cd-marquee-wrap {
+  border-top: 1px solid rgba(242, 237, 226, 0.12);
+  border-bottom: 1px solid rgba(242, 237, 226, 0.12);
+  overflow: hidden;
+  padding: 28px 0;
+}
+.cd-marquee-track {
+  display: flex; white-space: nowrap; gap: 48px;
+  animation: cdMarquee 35s linear infinite;
+}
+.cd-m-item {
+  font-family: var(--cd-font-display);
+  font-size: clamp(28px, 4vw, 56px);
+  font-style: italic;
+  margin: 0 24px;
+}
+.cd-m-dot {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--cd-accent);
+  vertical-align: middle;
+}
+@keyframes cdMarquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+
+/* ============================================================
+   8. MANIFESTO — SEZIONE TESTUALE
+   ============================================================ */
+.cd-manifesto { padding: 160px 48px; max-width: 1400px; margin: 0 auto; }
+.cd-sec-label {
+  font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--cd-muted); margin-bottom: 64px;
+}
+.cd-manifesto-text {
+  font-family: var(--cd-font-display);
+  font-size: clamp(32px, 4.5vw, 68px);
+  line-height: 1.15; max-width: 1100px;
+}
+.cd-manifesto-sub {
+  margin-top: 56px; max-width: 560px;
+  font-size: 16px; line-height: 1.65; color: var(--cd-cream-2);
+  margin-left: auto;
+}
+
+
+/* ============================================================
+   9. SEZIONE LAVORI / GRIGLIA PROGETTI
+   ============================================================ */
+.cd-work { padding: 80px 48px 160px; }
+.cd-work-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 80px;
+  border-bottom: 1px solid rgba(242, 237, 226, 0.12);
+  padding-bottom: 32px;
+}
+.cd-work-title {
+  font-family: var(--cd-font-display);
+  font-weight: 400; font-style: italic;
+  font-size: clamp(56px, 9vw, 140px);
+  line-height: 0.9;
+}
+.cd-work-count {
+  font-size: 13px; letter-spacing: 0.15em;
+  color: var(--cd-muted);
+}
+.cd-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 80px 64px;
+}
+/* sfasamento verticale per le card pari (effetto editoriale) */
+.cd-pi:nth-child(even) { margin-top: 120px; }
+
+.cd-card {
+  width: 100%; background: transparent; border: none; padding: 0;
+  text-align: left; cursor: none; color: inherit;
+  display: block;
+}
+.cd-card-img {
+  position: relative; overflow: hidden;
+  aspect-ratio: 4 / 5; background: #1a1a18;
+  /* aspect-ratio dichiarato evita layout shift anche senza width/height sull'img */
+}
+.cd-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.cd-card:hover .cd-card-img img { transform: scale(1.05); }
+
+.cd-card-ov {
+  position: absolute; inset: 0;
+  background: rgba(14, 14, 12, 0.4);
+  opacity: 0; transition: opacity .4s;
+  display: flex; align-items: center; justify-content: center;
+}
+.cd-card:hover .cd-card-ov { opacity: 1; }
+
+.cd-card-cta {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--cd-font-display); font-style: italic;
+  font-size: 22px;
+}
+.cd-card-arrow {
+  width: 44px; height: 44px; border: 1px solid var(--cd-cream);
+  border-radius: 50%; display: grid; place-items: center;
+}
+
+.cd-card-num {
+  margin-top: 20px;
+  font-size: 11px; letter-spacing: 0.2em; color: var(--cd-muted);
+}
+.cd-card-name {
+  margin-top: 8px;
+  font-family: var(--cd-font-display); font-style: italic;
+  font-size: clamp(28px, 3vw, 44px); line-height: 1.1;
+}
+.cd-card-cat {
+  margin-top: 4px;
+  font-size: 13px; color: var(--cd-cream-2);
+  letter-spacing: 0.05em;
+}
+
+
+/* ============================================================
+   9b. BIRD — elemento decorativo hero
+   ============================================================ */
+.cd-c-bird {
+  position: absolute;
+  bottom: 5%;
+  right: 3%;
+  /* Bird PNG è 520×365 (landscape) */
+  width: clamp(180px, 28vw, 380px);
+  opacity: 0;           /* GSAP porta a 1 all'ingresso */
+  pointer-events: none;
+}
+.cd-c-bird img {
+  width: 100%; height: auto; display: block;
+  opacity: 0.6;         /* Leggermente trasparente come luna e stelle */
+}
+
+
+/* ============================================================
+   9c. CHI SONO / ABOUT
+   ============================================================ */
+.cd-about {
+  padding: 120px 48px;
+  border-top: 1px solid rgba(242, 237, 226, 0.12);
+}
+.cd-about-inner {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: start;
+}
+.cd-about-img-wrap { position: relative; }
+.cd-about-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 4px;
+  filter: grayscale(0.15) brightness(0.9);
+  display: block;
+}
+.cd-about-img-caption {
+  margin-top: 12px;
+  font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cd-muted);
+}
+.cd-about-bio {
+  font-family: var(--cd-font-display);
+  font-size: clamp(20px, 2.4vw, 34px);
+  line-height: 1.4;
+  margin-bottom: 48px;
+}
+.cd-about-bio em {
+  font-style: italic; color: var(--cd-accent);
+}
+/* Experience list */
+.cd-exp-list { display: flex; flex-direction: column; }
+.cd-exp-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(242, 237, 226, 0.08);
+}
+.cd-exp-item:first-child {
+  border-top: 1px solid rgba(242, 237, 226, 0.08);
+}
+.cd-exp-year {
+  font-size: 11px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--cd-muted);
+  padding-top: 2px; flex-shrink: 0;
+  white-space: nowrap;
+}
+.cd-exp-body strong {
+  display: block; font-size: 13px; font-weight: 500;
+  margin-bottom: 3px; color: var(--cd-cream);
+}
+.cd-exp-body span {
+  font-size: 13px; color: var(--cd-muted); line-height: 1.55;
+}
+
+
+/* ============================================================
+   9d. CURSOR IMAGE-FOLLOW
+   ============================================================ */
+#cdCursorImg {
+  position: fixed; top: 0; left: 0;
+  width: 210px; height: 255px;
+  pointer-events: none;
+  z-index: 8999;
+  opacity: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  transform: translate(-50%, -60%) rotate(-4deg) scale(0.88);
+  will-change: transform, opacity;
+}
+#cdCursorImg img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+
+/* ============================================================
+   9e. SCROLL PROGRESS BAR
+   ============================================================ */
+#cdScrollBar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: var(--cd-accent);
+  z-index: 9997;
+  pointer-events: none;
+  transition: width 0.05s linear;
+}
+
+
+/* ============================================================
+   10. FOOTER
+   ============================================================ */
+.cd-footer {
+  padding: 140px 48px 48px;
+  text-align: center;
+  border-top: 1px solid rgba(242, 237, 226, 0.12);
+}
+.cd-ft-label {
+  font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--cd-muted); margin-bottom: 32px;
+}
+.cd-ft-cta {
+  display: inline-block;
+  font-family: var(--cd-font-display); font-style: italic;
+  font-size: clamp(64px, 11vw, 180px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+.cd-ft-cta::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 8px;
+  height: 1px; background: var(--cd-cream);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .6s cubic-bezier(.16,1,.3,1);
+}
+.cd-ft-cta:hover::after { transform: scaleX(1); }
+
+.cd-ft-bottom {
+  margin-top: 100px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--cd-muted);
+}
+.cd-ft-links { display: flex; gap: 24px; }
+
+
+/* ============================================================
+   11. MODALE DETTAGLIO PROGETTO
+   ============================================================ */
+.cd-panel {
+  position: fixed; inset: 0; z-index: 200;
+  pointer-events: none; opacity: 0;
+  transition: opacity .4s;
+}
+.cd-panel.open { pointer-events: auto; opacity: 1; }
+
+.cd-pn-bg {
+  position: absolute; inset: 0;
+  background: rgba(14, 14, 12, 0.7);
+  backdrop-filter: blur(8px);
+}
+.cd-pn-sheet {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: min(900px, 92vw);
+  background: var(--cd-bg);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform .6s cubic-bezier(.16,1,.3,1);
+}
+.cd-panel.open .cd-pn-sheet { transform: translateX(0); }
+
+.cd-pn-close {
+  position: sticky; top: 24px; right: 24px;
+  margin-left: auto; display: block;
+  width: 48px; height: 48px;
+  background: transparent; border: 1px solid var(--cd-cream);
+  border-radius: 50%; color: var(--cd-cream);
+  font-size: 18px; cursor: none;
+  z-index: 2;
+}
+
+.cd-pn-hero {
+  width: 100%; height: 60vh; object-fit: cover;
+}
+.cd-pn-body { padding: 56px 56px 80px; }
+.cd-pn-eye {
+  font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--cd-muted); margin-bottom: 16px;
+}
+.cd-pn-title {
+  font-family: var(--cd-font-display); font-style: italic;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1; margin-bottom: 40px;
+}
+.cd-pn-meta {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 32px; padding: 32px 0;
+  border-top: 1px solid rgba(242, 237, 226, 0.12);
+  border-bottom: 1px solid rgba(242, 237, 226, 0.12);
+  margin-bottom: 40px;
+}
+.cd-pn-meta label {
+  display: block;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--cd-muted); margin-bottom: 8px;
+}
+.cd-pn-meta span {
+  font-family: var(--cd-font-display); font-style: italic;
+  font-size: 18px;
+}
+.cd-pn-desc {
+  font-size: 16px; line-height: 1.7; color: var(--cd-cream-2);
+  max-width: 600px;
+}
+.cd-pn-section-label {
+  margin-top: 64px; margin-bottom: 24px;
+  font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--cd-muted);
+}
+.cd-pn-gallery {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.cd-pn-slot {
+  aspect-ratio: 4 / 3;
+  background: rgba(242, 237, 226, 0.04);
+  border: 1px dashed rgba(242, 237, 226, 0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--cd-muted);
+  letter-spacing: 0.05em;
+  padding: 16px; text-align: center;
+}
+.cd-pn-slot-wide { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+
+/* Immagini reali nella gallery */
+.cd-pn-img {
+  overflow: hidden;
+  border-radius: 4px;
+}
+.cd-pn-img img {
+  width: 100%; height: auto; display: block;
+  transition: transform 1.2s cubic-bezier(.16, 1, .3, 1);
+}
+.cd-pn-img:hover img { transform: scale(1.04); }
+.cd-pn-img figcaption {
+  margin-top: 10px;
+  font-size: 12px; color: var(--cd-muted);
+  letter-spacing: 0.08em;
+}
+.cd-pn-img-wide { grid-column: 1 / -1; }
+
+/* Navigazione prev / next in fondo al panel */
+.cd-pn-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid rgba(242, 237, 226, 0.1);
+  margin-top: 48px;
+}
+.cd-pn-nav-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 32px 40px;
+  background: transparent;
+  border: none;
+  color: var(--cd-cream);
+  text-align: left;
+  cursor: none;
+  transition: background 0.3s;
+  border-top: 2px solid transparent;
+}
+.cd-pn-nav-btn:hover {
+  background: rgba(242, 237, 226, 0.04);
+  border-top-color: var(--cd-accent);
+}
+.cd-pn-nav-btn--next {
+  text-align: right;
+  border-left: 1px solid rgba(242, 237, 226, 0.1);
+  align-items: flex-end;
+}
+.cd-pn-nav-arrow {
+  font-size: 20px;
+  color: var(--cd-muted);
+  transition: color 0.3s, transform 0.3s;
+  display: block;
+}
+.cd-pn-nav-btn:hover .cd-pn-nav-arrow { color: var(--cd-accent); }
+.cd-pn-nav-btn:first-child:hover .cd-pn-nav-arrow { transform: translateX(-4px); }
+.cd-pn-nav-btn--next:hover .cd-pn-nav-arrow     { transform: translateX(4px); }
+.cd-pn-nav-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cd-muted);
+}
+.cd-pn-nav-title {
+  font-family: var(--cd-font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--cd-cream);
+  line-height: 1.2;
+}
+
+
+/* ============================================================
+   12. RESPONSIVE / MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cd-ball, .cd-ring { display: none; }
+
+  .cd-header { padding: 20px 24px; }
+  .cd-nav { gap: 20px; }
+  .cd-nav a { font-size: 11px; }
+
+  /* Mobile nav — sostituisce la nav orizzontale */
+  .cd-burger { display: flex; }
+
+  .cd-nav {
+    /* Overlay a tutto schermo */
+    position: fixed; inset: 0;
+    background: var(--cd-bg);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 40px;
+    gap: 0;
+    z-index: 99;
+    /* Nascosta di default */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .cd-nav.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .cd-nav a {
+    font-size: clamp(28px, 8vw, 48px);
+    letter-spacing: 0.01em;
+    font-family: var(--cd-font-display);
+    font-style: italic;
+    opacity: 0.85;
+    padding: 12px 0;
+    width: 100%;
+    border-bottom: 1px solid rgba(242,237,226,0.08);
+  }
+  .cd-nav a:last-child { border-bottom: none; }
+  .cd-nav a::after { display: none; }
+
+  .cd-hero { padding: 140px 24px 60px; }
+  .cd-hero-foot { flex-direction: column; align-items: flex-start; }
+
+  .cd-manifesto, .cd-work { padding-left: 24px; padding-right: 24px; }
+  .cd-work-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+  .cd-grid { grid-template-columns: 1fr; gap: 60px; }
+  .cd-pi:nth-child(even) { margin-top: 0; }
+
+  .cd-footer { padding: 80px 24px 32px; }
+  .cd-ft-bottom { flex-direction: column; gap: 16px; margin-top: 60px; }
+
+  .cd-pn-body { padding: 32px 24px 60px; }
+  .cd-pn-meta { grid-template-columns: 1fr; gap: 20px; }
+  .cd-pn-gallery { grid-template-columns: 1fr; }
+  .cd-pn-slot-wide { aspect-ratio: 4 / 3; }
+  /* Panel hero più basso su mobile */
+  .cd-pn-hero { height: 40vh; }
+  /* Nav prev/next impilata verticalmente su mobile */
+  .cd-pn-nav { grid-template-columns: 1fr; }
+  .cd-pn-nav-btn { padding: 24px; }
+  .cd-pn-nav-btn--next { border-left: none; border-top: 1px solid rgba(242,237,226,0.1); }
+
+  /* About */
+  .cd-about { padding: 80px 24px; }
+  .cd-about-inner { grid-template-columns: 1fr; gap: 40px; }
+  .cd-about-img { max-width: 220px; aspect-ratio: auto; }
+  .cd-exp-item { grid-template-columns: 80px 1fr; gap: 12px; }
+
+  /* Bird — hidden on small screens to avoid clutter */
+  .cd-c-bird { display: none; }
+
+  /* Cursor image follow — hidden on touch */
+  #cdCursorImg { display: none; }
+}

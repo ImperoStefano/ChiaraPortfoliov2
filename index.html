@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       SEO / CONDIVISIONE SOCIAL
+       Modifica qui titolo, descrizione e immagine di anteprima
+       ============================================================ -->
+  <title>Chiara Diomei — Visual Design & Communication</title>
+  <meta name="description" content="Portfolio di Chiara Diomei, designer visiva basata a Milano. Advertising, editorial e brand design." />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Chiara Diomei — Visual Design & Communication" />
+  <meta property="og:description" content="Portfolio di Chiara Diomei, designer visiva basata a Milano." />
+  <meta property="og:image"       content="assets/og-image.jpg" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Chiara Diomei — Visual Design" />
+  <meta name="twitter:description" content="Designer visiva basata a Milano. Advertising, editorial e brand design." />
+  <meta name="twitter:image"       content="assets/og-image.jpg" />
+
+  <!-- Browser color on mobile -->
+  <meta name="theme-color" content="#0e0e0c" />
+
+  <!-- ============================================================
+       FONT GOOGLE
+       Per cambiare font modifica i nomi qui e in css/style.css
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ============================================================
+       CSS PRINCIPALE
+       Tutti gli stili sono in css/style.css con commenti
+       ============================================================ -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- Preload prima immagine di copertina (LCP) -->
+  <link rel="preload" as="image" href="assets/nonnival-cover.jpg" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       CURSORE PERSONALIZZATO (pallino + cerchio)
+       Funziona solo su desktop con mouse
+       ============================================================ -->
+  <div class="cd-ball" id="cdBall"></div>
+  <div class="cd-ring" id="cdRing"></div>
+  <!-- Barra di progresso scroll -->
+  <div id="cdScrollBar" aria-hidden="true"></div>
+  <!-- Immagine che segue il cursore sopra le card (solo desktop) -->
+  <div id="cdCursorImg" aria-hidden="true"><img src="" alt="" /></div>
+
+
+  <!-- ============================================================
+       PRELOADER (schermata di caricamento iniziale)
+       Per cambiare il nome modifica i due <span> qui sotto
+       ============================================================ -->
+  <div id="cd-preloader">
+    <div class="cd-pl-wrap">
+      <div class="cd-pl-line"><span class="cd-pl-word" id="cd-pl1">Chiara</span></div>
+      <div class="cd-pl-line"><span class="cd-pl-word" id="cd-pl2">Diomei</span></div>
+      <div class="cd-pl-bar"><div class="cd-pl-fill" id="cd-pl-fill"></div></div>
+      <div class="cd-pl-pct" id="cd-pl-pct">0%</div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       HEADER / MENU DI NAVIGAZIONE
+       Modifica le voci del menu qui sotto
+       ============================================================ -->
+  <header class="cd-header">
+    <a href="#home" class="cd-logo cd-hv">CD</a>
+    <nav class="cd-nav" id="cdNav">
+      <a href="#work"      class="cd-hv">Lavori</a>
+      <a href="#about"     class="cd-hv">Chi sono</a>
+      <a href="#manifesto" class="cd-hv">Manifesto</a>
+      <a href="mailto:chiaradiomei0@outlook.com" class="cd-hv">Contatti</a>
+    </nav>
+    <!-- Hamburger — visibile solo su mobile -->
+    <button class="cd-burger" id="cdBurger" aria-label="Apri menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+
+  <!-- ============================================================
+       HERO — SEZIONE INIZIALE CON NOME E COSTELLAZIONE
+       Per cambiare il nome modifica i due <span class="cd-hn-word">
+       Per cambiare la descrizione modifica <p class="cd-hero-desc">
+       ============================================================ -->
+  <section class="cd-hero" id="home">
+
+    <!-- Costellazione decorativa: luna + 7 stelle -->
+    <div class="cd-constellation" aria-hidden="true">
+      <div class="cd-c-moon cd-c-el" data-depth="40">
+        <img src="assets/cd-moon.png" alt="" width="480" height="276" />
+      </div>
+      <div class="cd-c-star cd-c-s1 cd-c-el" data-depth="28"><img src="assets/cd-star-1.png" alt="" /></div>
+      <div class="cd-c-star cd-c-s2 cd-c-el" data-depth="22"><img src="assets/cd-star-2.png" alt="" /></div>
+      <div class="cd-c-star cd-c-s3 cd-c-el" data-depth="18"><img src="assets/cd-star-3.png" alt="" /></div>
+      <div class="cd-c-star cd-c-s4 cd-c-el" data-depth="32"><img src="assets/cd-star-4.png" alt="" /></div>
+      <div class="cd-c-star cd-c-s5 cd-c-el" data-depth="14"><img src="assets/cd-star-1.png" alt="" /></div>
+      <div class="cd-c-star cd-c-s6 cd-c-el" data-depth="20"><img src="assets/cd-star-3.png" alt="" /></div>
+      <div class="cd-c-star cd-c-s7 cd-c-el" data-depth="12"><img src="assets/cd-star-2.png" alt="" /></div>
+      <!-- Uccello — estratto dalla copertina del portfolio originale -->
+      <div class="cd-c-bird cd-c-el" data-depth="18">
+        <img src="assets/cd-bird.png" alt="" />
+      </div>
+    </div>
+
+    <!-- Sottotitolo sopra il nome -->
+    <div class="cd-hero-eye"><span>Visual Design &amp; Communication</span></div>
+
+    <!-- NOME GRANDE — modifica qui per cambiare il nome -->
+    <h1 class="cd-hero-name">
+      <div class="cd-hn-line"><span class="cd-hn-word">CHIARA</span></div>
+      <div class="cd-hn-line"><span class="cd-hn-word">DIOMEI</span></div>
+    </h1>
+
+    <!-- Descrizione + indicatore scroll in basso -->
+    <div class="cd-hero-foot">
+      <p class="cd-hero-desc">
+        Designer visiva basata a Milano.<br />
+        Advertising · editorial · brand design.
+      </p>
+      <div class="cd-hero-scroll">
+        <div class="cd-h-line"></div>
+        Scroll
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       MARQUEE — TESTO SCORREVOLE
+       Modifica le parole nell'array `marqueeWords` in js/main.js
+       ============================================================ -->
+  <div class="cd-marquee-wrap">
+    <div class="cd-marquee-track" id="cdMarqueeTrack">
+      <!-- Generato via JavaScript -->
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       MANIFESTO — sezione testuale
+       Modifica i testi direttamente qui sotto
+       ============================================================ -->
+  <section class="cd-manifesto" id="manifesto">
+    <div class="cd-sec-label">— Manifesto</div>
+    <div class="cd-manifesto-text cd-m-reveal">
+      L'enorme potenza dell'<em>immagine</em> consiste nella capacità di
+      veicolare contenuti suscitando emozioni — partendo sempre da un punto
+      di vista <em>autenticamente</em> personale.
+    </div>
+    <p class="cd-manifesto-sub cd-m-reveal-sub">
+      Utilizzo tutte le mie conoscenze teoriche e le tecniche apprese nel
+      mio percorso, ma inevitabilmente parto da un punto di vista
+      intrinsecamente legato alla mia persona.
+    </p>
+  </section>
+
+
+  <!-- ============================================================
+       CHI SONO / ABOUT
+       Modifica bio, esperienze e foto qui sotto.
+       Per cambiare foto: sostituisci assets/chiara.png
+       ============================================================ -->
+  <section class="cd-about" id="about">
+    <div class="cd-about-inner">
+
+      <div class="cd-about-img-wrap cd-about-anim-left">
+        <img class="cd-about-img" src="assets/chiara.png"
+             alt="Chiara Diomei — Visual Designer" width="279" height="603" />
+        <p class="cd-about-img-caption">Narni, 2002 &rarr; Milano</p>
+      </div>
+
+      <div class="cd-about-right cd-about-anim-right">
+        <div class="cd-sec-label">— Chi sono</div>
+        <p class="cd-about-bio">
+          Sono una giovane creativa <em>appassionata</em>, intraprendente
+          e sempre alla ricerca di nuove sfide. La mia curiosit&agrave; costante
+          mi guida con entusiasmo e determinazione.
+        </p>
+
+        <div class="cd-exp-list">
+          <div class="cd-exp-item">
+            <span class="cd-exp-year">2024–2025</span>
+            <div class="cd-exp-body">
+              <strong>Stage — Pquod Agency, Milano</strong>
+              <span>Brand identity FollowYourPassion &middot; Visual per IAC 2024 &middot; Linee guida Porta Venezia Design District &middot; Brand Milano21 Half Marathon &amp; Runway Run.</span>
+            </div>
+          </div>
+          <div class="cd-exp-item">
+            <span class="cd-exp-year">2023–2024</span>
+            <div class="cd-exp-body">
+              <strong>Master Visual Design &amp; Communication</strong>
+              <span>Raffles Milano International Design Institute.</span>
+            </div>
+          </div>
+          <div class="cd-exp-item">
+            <span class="cd-exp-year">2020–2024</span>
+            <div class="cd-exp-body">
+              <strong>Corso Triennale in Visual Design</strong>
+              <span>Raffles Milano International Design Institute.</span>
+            </div>
+          </div>
+          <div class="cd-exp-item">
+            <span class="cd-exp-year">2024</span>
+            <div class="cd-exp-body">
+              <strong>Fuori Salone — Porta Venezia Design District</strong>
+              <span>Visual system per il quartiere durante la Milano Design Week.</span>
+            </div>
+          </div>
+          <div class="cd-exp-item">
+            <span class="cd-exp-year">2023</span>
+            <div class="cd-exp-body">
+              <strong>Logo AVIS Foligno &times; Spoleto Nuoto</strong>
+              <span>Progettazione locandine PattoxFoligno.</span>
+            </div>
+          </div>
+          <div class="cd-exp-item">
+            <span class="cd-exp-year">2015–2020</span>
+            <div class="cd-exp-body">
+              <strong>Liceo Artistico O. Metelli, Terni</strong>
+              <span>Diploma di maturit&agrave; artistica.</span>
+            </div>
+          </div>
+        </div><!-- /cd-exp-list -->
+      </div><!-- /cd-about-right -->
+
+    </div><!-- /cd-about-inner -->
+  </section>
+
+
+  <!-- ============================================================
+       LAVORI / PORTFOLIO
+       I progetti vengono generati automaticamente da js/projects.js
+       Per aggiungere, modificare o rimuovere un progetto:
+       apri js/projects.js e modifica l'array projects
+       ============================================================ -->
+  <section class="cd-work" id="work">
+    <div class="cd-work-head">
+      <h2 class="cd-work-title">Selected<br />Works</h2>
+      <span class="cd-work-count" id="cdWorkCount">04 Progetti</span>
+    </div>
+    <div class="cd-grid" id="cdGrid">
+      <!-- Le card dei progetti vengono inserite qui via JavaScript -->
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER — CONTATTI E LINK SOCIAL
+       Modifica email, anno e link social qui sotto
+       ============================================================ -->
+  <footer class="cd-footer">
+    <p class="cd-ft-label">Creiamo qualcosa insieme</p>
+    <a href="mailto:chiaradiomei0@outlook.com" class="cd-ft-cta cd-hv">SCRIVIMI</a>
+    <div class="cd-ft-bottom">
+      <span class="cd-ft-copy">© 2025 Chiara Diomei</span>
+      <div class="cd-ft-links">
+        <a href="https://www.instagram.com/chiaradiomeii_" target="_blank" rel="noopener noreferrer" class="cd-hv">Instagram</a>
+        <a href="mailto:chiaradiomei0@outlook.com" class="cd-hv">Mail</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       MODALE DI DETTAGLIO PROGETTO
+       Si apre cliccando una card. Contenuto generato da JS.
+       Non modificare la struttura — solo eventualmente lo stile in CSS
+       ============================================================ -->
+  <div class="cd-panel" id="cdPanel" role="dialog" aria-modal="true" aria-label="Dettaglio progetto">
+    <div class="cd-pn-bg" id="cdPanelBg"></div>
+    <div class="cd-pn-sheet">
+      <button class="cd-pn-close cd-hv" id="cdPanelClose" aria-label="Chiudi">✕</button>
+      <div id="cdPanelContent"><!-- Generato via JavaScript --></div>
+      <!-- Navigazione prev / next -->
+      <div class="cd-pn-nav">
+        <button class="cd-pn-nav-btn cd-hv" id="cdPanelPrev" aria-label="Progetto precedente">
+          <span class="cd-pn-nav-arrow">←</span>
+          <span class="cd-pn-nav-label">Precedente</span>
+          <span class="cd-pn-nav-title"></span>
+        </button>
+        <button class="cd-pn-nav-btn cd-pn-nav-btn--next cd-hv" id="cdPanelNext" aria-label="Progetto successivo">
+          <span class="cd-pn-nav-label">Successivo</span>
+          <span class="cd-pn-nav-title"></span>
+          <span class="cd-pn-nav-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       LIBRERIE ESTERNE — Animazioni e scroll fluido
+       (caricate da CDN, nessuna installazione necessaria)
+       ============================================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <!-- ============================================================
+       I TUOI SCRIPT
+       projects.js → dati dei progetti (modifica qui per i contenuti)
+       main.js     → animazioni, cursore, modale (logica)
+       ============================================================ -->
+  <script src="js/projects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
